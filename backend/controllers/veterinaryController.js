@@ -42,8 +42,28 @@ const confirm = async (req, res) => {
   }
 };
 
+const loging = async (req, res) => {
+  const { email, password } = req.body;
+  if (!email || !password) return res.status(400).json({ msg: 'email o password vacios' });
+
+  try {
+    //Verificamos si el usuario existe via email
+    const veterinaryLogin = await Veterinary.findOne({ email });
+    if (!veterinaryLogin) return res.status(401).json({ msg: 'el usuario no existe' });
+
+    //Verificamos si la cuenta esta verificada
+    if (!veterinaryLogin.confirmed) return res.status(401).json({ msg: 'Cuenta no verificada' });
+
+    //Comprobamos el password
+
+    res.json('desde loging');
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const profile = (req, res) => {
   res.json({ smg: 'Desde perfil' });
 };
 
-export { register, profile, confirm };
+export { register, profile, confirm, loging };
