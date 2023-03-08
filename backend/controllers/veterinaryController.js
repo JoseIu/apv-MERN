@@ -1,3 +1,5 @@
+import bcrypt from 'bcrypt';
+import jwtGenerator from '../helpers/jwtGenerator.js';
 import Veterinary from '../models/Veterinary.js';
 
 const register = async (req, res) => {
@@ -55,8 +57,12 @@ const loging = async (req, res) => {
     if (!veterinaryLogin.confirmed) return res.status(401).json({ msg: 'Cuenta no verificada' });
 
     //Comprobamos el password
+    const passwordCompare = await bcrypt.compare(password, veterinaryLogin.password);
+    if (!passwordCompare) return res.status(401).json({ msg: 'password incorrecta' });
 
-    res.json('desde loging');
+    //Una vez que rerificamos y esta todo Ok generemos su token de session
+
+    res.json({ token: jwtGenerator(veterinaryLogin._id) });
   } catch (error) {
     console.log(error);
   }
