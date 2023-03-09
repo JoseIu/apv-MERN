@@ -1,4 +1,5 @@
 import bcrypt from 'bcrypt';
+import idGenerator from '../helpers/idGenerator.js';
 import jwtGenerator from '../helpers/jwtGenerator.js';
 import Veterinary from '../models/Veterinary.js';
 
@@ -20,7 +21,7 @@ const register = async (req, res) => {
     console.log(error);
   }
 };
-
+//Confirmamos la cuenta para poder registrase correctamente
 const confirm = async (req, res) => {
   const { token } = req.params;
 
@@ -67,9 +68,54 @@ const loging = async (req, res) => {
     console.log(error);
   }
 };
+const resetPassword = async (req, res) => {
+  const { email } = req.body;
+  if (!email) return res.status(404).json({ msg: 'Email no valido' });
 
-const profile = (req, res) => {
-  res.json({ smg: 'Desde perfil' });
+  try {
+    //Comprobamos si ese email existe
+    const veterinaryEmail = await Veterinary.findOne({ email });
+    if (!veterinaryEmail) res.status(404).json({ msg: 'Email no encontrado' });
+
+    //Genramos token y se lo envias a su correo
+    veterinaryEmail.token = idGenerator();
+    await veterinaryEmail.save();
+
+    return res.status(200).json({ msg: 'Emos enviado un email con las instrucciones' });
+  } catch (error) {
+    return res.status(500).json({ msg: 'Eror en el Servidor' });
+  }
 };
 
-export { register, profile, confirm, loging };
+/* MIRAR ESTA PARTE POSIBLE MIDDLEWARE (checkToken)?*/
+const checkToken = async (req, res) => {
+  const { token } = req.params;
+
+  const tokenValid = await Veterinary.findOne({ token });
+  if (!tokenValid) return res.status(404).json({ msg: 'Token no valido' });
+
+  res.status(200).json({ msg: 'Token valido' });
+};
+const newPwd = async (req, res) => {
+  const { token } = req.params;
+  const { password } = req.body;
+
+  const veterinary = await Veterinary.findOne({ token });
+  if (!veterinary) return res.status(404).json({ msg: 'Token no valido' });
+
+  try {
+    veterinary.token = null;
+    veterinary.password = password;
+    await veterinary.save();
+    res.status(200).json({ msg: 'Contraseña modificada correctamente' });
+  } catch (error) {
+    return res.status(500).json({ msg: 'Eror en el Servidor' });
+  }
+};
+
+const profile = (req, res) => {
+  const { veterinaryAuth } = req;
+  res.json({ perfil: veterinaryAuth });
+};
+
+export { register, profile, confirm, loging, resetPassword, checkToken, newPwd };
