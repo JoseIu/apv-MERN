@@ -10,6 +10,7 @@ veterinaryRouter.post('/login', loging);
 
 veterinaryRouter.post('/olvide-password', resetPassword);
 veterinaryRouter.route('/olvide-password/:token').get(checkToken).post(newPwd);
+const a = 'a';
 
 //Area privada
 // middleware checkAuth para verificar/proteger la ruta profile
