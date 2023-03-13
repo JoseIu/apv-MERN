@@ -7,7 +7,6 @@ const veterinaryRouter = express.Router();
 veterinaryRouter.post('/', register);
 veterinaryRouter.get('/confirmar/:token', confirm);
 veterinaryRouter.post('/login', loging);
-const a = 1;
 
 veterinaryRouter.post('/olvide-password', resetPassword);
 veterinaryRouter.route('/olvide-password/:token').get(checkToken).post(newPwd);
