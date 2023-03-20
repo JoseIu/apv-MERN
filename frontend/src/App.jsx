@@ -1,3 +1,12 @@
-const App = () => <h1 className='h1'>Hola mundo</h1>;
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import AuthLayOut from './layout/AuthLayOut';
+
+const App = () => (
+	<BrowserRouter>
+		<Routes>
+			<Route path='/' element={<AuthLayOut />}></Route>
+		</Routes>
+	</BrowserRouter>
+);
 
 export default App;
