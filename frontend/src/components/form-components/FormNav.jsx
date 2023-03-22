@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom';
 
-const FormNav = ({ path, value }) => (
+const FormNav = ({ path, value, path2, value2 }) => (
 	<nav className='Login-nav'>
 		<Link to={path} className='Form-a'>
 			{value}
 		</Link>
-		<Link to={'/olvide-password'} className='Form-a'>
-			He olvidado mi contraseña
+		<Link to={path2} className='Form-a'>
+			{value2}
 		</Link>
 	</nav>
 );
