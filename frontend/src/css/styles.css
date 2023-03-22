@@ -1,3 +1,92 @@
-.h1 {
-	font-size: 2em;
+:root {
+	--primary-color: #2d2d2d;
+	--secundary-color: #ffea9f;
+	--input-bg: #ffea9f5f;
+
+	--bg-color-bnt: #ffea9f;
+	--bg-color: rgb(249 250 251);
+	--box-shadow: 0.22rem 0.3rem #231f20;
+
+	--title-color: #2d2d2d;
+	--sub-title-color: #494a4c;
+	--paragraph-color: #494a4c;
+}
+.wrapper {
+	max-width: 1400px;
+	margin-left: auto;
+	margin-right: auto;
+}
+.Main {
+	background-color: var(--bg-color);
+}
+.Login {
+	height: 100vh;
+	padding: 0.5em;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	row-gap: 5em;
+}
+.Logo {
+	padding: 1em;
+	text-align: center;
+	font-size: 4em;
+}
+.Form {
+	width: 100%;
+	max-width: 50em;
+	background-color: #fff;
+	outline: 1px solid lightgray;
+	border-radius: 0.4em;
+	padding: 1.5em;
+	box-shadow: var(--box-shadow);
+}
+.From-email {
+	margin-bottom: 1.4em;
+}
+.From-password {
+	margin-bottom: 2em;
+}
+.Form-label {
+	color: var(--title-color);
+	font-weight: bold;
+}
+.Form-input {
+	width: 100%;
+	padding: 0.6em;
+	border-radius: 0.3em;
+	border: 1px solid gray;
+	background-color: var(--input-bg);
+
+	outline: none;
+}
+.Form-input::placeholder {
+	color: var(--primary-color);
+}
+.Form-a:hover {
+	color: var(--primary-color);
+}
+.Form-submit {
+	width: 11rem;
+	padding: 1em;
+	margin-left: auto;
+	margin-right: auto;
+	border-radius: 0.3em;
+	background-color: var(--bg-color-bnt);
+	box-shadow: var(--box-shadow);
+	cursor: pointer;
+	font-weight: bold;
+}
+/*Registro y olvide pwd*/
+.Login-nav {
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 2em;
+	justify-content: space-evenly;
+}
+.Form-a {
+	color: gray;
+	font-weight: bold;
 }
