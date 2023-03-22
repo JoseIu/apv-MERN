@@ -19,7 +19,8 @@
 .Main {
 	background-color: var(--bg-color);
 }
-.Login {
+.Login,
+.Register {
 	height: 100vh;
 	padding: 0.5em;
 	display: flex;
@@ -42,10 +43,11 @@
 	padding: 1.5em;
 	box-shadow: var(--box-shadow);
 }
-.From-email {
+.Form-email,
+.Form-name {
 	margin-bottom: 1.4em;
 }
-.From-password {
+.Form-password {
 	margin-bottom: 2em;
 }
 .Form-label {

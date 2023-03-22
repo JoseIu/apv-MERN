@@ -1,4 +1,7 @@
-import { Link } from 'react-router-dom';
+import FormEmail from '../components/form-components/FormEmail';
+import FormNav from '../components/form-components/FormNav';
+import FormPassword from '../components/form-components/FormPassword';
+import FormSubmit from '../components/form-components/FromSubmit';
 
 const Login = () => (
 	<div className='Login wrapper'>
@@ -6,28 +9,11 @@ const Login = () => (
 			LOGO
 		</a>
 		<form action='POST' className='Form'>
-			<div className='From-email'>
-				<label className='Form-label' htmlFor='email'>
-					Correo
-				</label>
-				<input className='Form-input' type='email' name='email' placeholder='correo....' />
-			</div>
-			<div className='From-password'>
-				<label className='Form-label' htmlFor='password'>
-					Contraseña
-				</label>
-				<input className='Form-input' type='password' name='password' placeholder='contraseña....' />
-			</div>
-			<input className='Form-submit' type='submit' value='Iniciar sesión' />
+			<FormEmail />
+			<FormPassword />
+			<FormSubmit value={'Iniciar sesión'} />
 		</form>
-		<nav className='Login-nav'>
-			<Link to={'/registrar'} className='Form-a' href='#'>
-				¿No tienes cuenta?, Regístrate
-			</Link>
-			<Link to={'/olvide-password'} className='Form-a' href='#'>
-				He olvidado mi contraseña
-			</Link>
-		</nav>
+		<FormNav path={'/registrar'} value={' Registrate aquí!'} />
 	</div>
 );
 
