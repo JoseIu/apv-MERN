@@ -9,7 +9,7 @@ const register = async (req, res) => {
 
   //Evitamos usuarios duplicados
   const existVeterinary = await Veterinary.findOne({ email });
-  if (existVeterinary) return res.status(409).json({ error: 'este email ya esta registrado' });
+  if (existVeterinary) return res.status(409).json({ error: 'usuario ya esta registrado' });
 
   try {
     //Guarda nuevo Veterinario
