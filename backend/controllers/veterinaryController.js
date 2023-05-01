@@ -1,6 +1,7 @@
 import bcrypt from 'bcrypt';
 import idGenerator from '../helpers/idGenerator.js';
 import jwtGenerator from '../helpers/jwtGenerator.js';
+import sendEmailRegister from '../helpers/sendEmailRegister.js';
 import Veterinary from '../models/Veterinary.js';
 
 const register = async (req, res) => {
@@ -9,12 +10,15 @@ const register = async (req, res) => {
 
   //Evitamos usuarios duplicados
   const existVeterinary = await Veterinary.findOne({ email });
-  if (existVeterinary) return res.status(409).json({ error: 'usuario ya esta registrado' });
+  if (existVeterinary) return res.status(409).json({ error: 'usuario ya registrado' });
 
   try {
-    //Guarda nuevo Veterinario
+    //Crea y Guarda nuevo Veterinario
     const veterinary = new Veterinary(req.body);
     const veterinarySaved = await veterinary.save();
+
+    //Enviamos el email para verificar
+    sendEmailRegister({ email, name, toekn: veterinarySaved.token });
 
     res.json(veterinarySaved);
   } catch (error) {

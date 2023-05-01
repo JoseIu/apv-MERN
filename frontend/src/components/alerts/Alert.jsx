@@ -1,8 +1,7 @@
-const Alert = ({ alert, errorActive }) => {
+const Alert = ({ alert }) => {
+	const { msg, errorActive } = alert;
 	console.log(errorActive);
 	const err = errorActive ? 'Error' : 'Success';
-	const { msg } = alert;
-	console.log(alert);
 	return (
 		<>
 			<span className={err}>{msg}</span>

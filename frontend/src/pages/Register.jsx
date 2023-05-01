@@ -6,38 +6,8 @@ import FormPassword from '../components/form-components/FormPassword';
 import FormSubmit from '../components/form-components/FromSubmit';
 
 const Register = () => {
-	const [name, setName] = useState('');
-	const [email, setEmail] = useState('');
-	const [password, setPassword] = useState('');
-	const [alert, setAlert] = useState({});
+	const { name, setName, email, setEmail, password, setPassword, alert, setAlert } = useGetStates();
 
-	const handleSubmit = async e => {
-		e.preventDefault();
-		console.log('desde handle');
-		if ([name, email, password].includes('')) {
-			return setAlert({ msg: 'Todos los campos vacios', errorActive: true });
-		}
-		setAlert({});
-
-		// enviamos los datos para registrar
-		try {
-			const url = 'http://localhost:3000/api/veterinarios';
-			const req = await fetch(url, {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({ name, email, password })
-			});
-			const data = await req.json();
-
-			const { error } = data;
-			if (error) {
-				return setAlert({ msg: error, errorActive: true });
-			}
-			setAlert({ msg: 'creado correctamente revisa tu correo', errorActive: false });
-		} catch (error) {
-			console.log(error);
-		}
-	};
 	const { msg } = alert;
 
 	return (
@@ -47,7 +17,7 @@ const Register = () => {
 			</a>
 			{msg && <Alert alert={alert} />}
 
-			<form className='Form' onSubmit={handleSubmit}>
+			<form className='Form' onSubmit={e => fromValidator(e, name, email, password, setAlert)}>
 				<div className='Form-name'>
 					<label className='Form-label' htmlFor='name'>
 						Nombre
@@ -74,7 +44,74 @@ const Register = () => {
 		</div>
 	);
 };
-// const validateForm = (e, name, email, password, setAlert) => {
-// 	if ([name, email, password].includes('')) return setAlert({ smg: 'Todos los campos son necesario' });
-// };
+const useGetStates = () => {
+	const [validates, setValidates] = useState({
+		name: '',
+		email: '',
+		password: '',
+		alert: {}
+	});
+
+	const setName = name => {
+		setValidates({
+			...validates,
+			name
+		});
+	};
+	const setEmail = email => {
+		setValidates({
+			...validates,
+			email
+		});
+	};
+	const setPassword = password => {
+		setValidates({
+			...validates,
+			password
+		});
+	};
+	const setAlert = alert => {
+		setValidates({
+			...validates,
+			alert
+		});
+	};
+
+	return {
+		...validates,
+		setName,
+		setEmail,
+		setPassword,
+		setAlert
+	};
+};
+const fromValidator = async (e, name, email, password, setAlert) => {
+	e.preventDefault();
+
+	if ([name, email, password].includes('')) {
+		return setAlert({ msg: 'Todos los campos son obligatorios', errorActive: true });
+	}
+
+	// setAlert({});
+
+	// enviamos los datos para registrar
+	try {
+		const url = 'http://localhost:3000/api/veterinarios';
+		const req = await fetch(url, {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ name, email, password })
+		});
+		const data = await req.json();
+
+		const { error } = data;
+		if (error) {
+			return setAlert({ msg: error, errorActive: true });
+		}
+		setAlert({ msg: 'creado correctamente revisa tu correo', errorActive: false });
+	} catch (error) {
+		console.log(error);
+	}
+};
+
 export default Register;
