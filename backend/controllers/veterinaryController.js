@@ -18,7 +18,7 @@ const register = async (req, res) => {
     const veterinarySaved = await veterinary.save();
 
     //Enviamos el email para verificar
-    sendEmailRegister({ email, name, toekn: veterinarySaved.token });
+    sendEmailRegister({ email, name, token: veterinarySaved.token });
 
     res.json(veterinarySaved);
   } catch (error) {

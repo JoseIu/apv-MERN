@@ -13,7 +13,7 @@ const App = () => (
 				<Route index element={<Login />} />
 				<Route path='registrar' element={<Register />} />
 				<Route path='olvide-password' element={<ForgetPass />} />
-				<Route path='confirmar-cuenta/:id' element={<ConfirmAcc />} />
+				<Route path='confirmar-cuenta/:token' element={<ConfirmAcc />} />
 			</Route>
 		</Routes>
 	</BrowserRouter>

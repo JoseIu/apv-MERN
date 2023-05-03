@@ -11,6 +11,7 @@ const sendEmailRegister = async data => {
   });
 
   //enviamos email
+  console.log(data);
   const { name, email, token } = data;
   const info = await transporter.sendMail({
     from: 'APV - Administrador de pacientes',
