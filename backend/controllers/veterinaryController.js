@@ -35,7 +35,7 @@ const confirm = async (req, res) => {
 
     if (!veterinaryConfirm) {
       const error = new Error('token no valido');
-      return res.status(404).json({ smg: error.message });
+      return res.status(404).json({ error: error.message });
     }
 
     //Si existe setemos token:null y confirmado:true
