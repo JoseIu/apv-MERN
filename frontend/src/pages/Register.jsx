@@ -4,11 +4,13 @@ import FormEmail from '../components/form-components/FormEmail';
 import FormNav from '../components/form-components/FormNav';
 import FormPassword from '../components/form-components/FormPassword';
 import FormSubmit from '../components/form-components/FromSubmit';
+import conectDB from '../helpers/ConectDB';
 
 const Register = () => {
 	const { name, setName, email, setEmail, password, setPassword, alert, setAlert } = useGetStates();
 
 	const { msg } = alert;
+	console.log(import.meta.env.VITE_BACKED_URL);
 
 	return (
 		<div className='Register wrapper'>
@@ -96,13 +98,7 @@ const fromValidator = async (e, name, email, password, setAlert) => {
 
 	// enviamos los datos para registrar
 	try {
-		const url = 'http://localhost:3000/api/veterinarios';
-		const req = await fetch(url, {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({ name, email, password })
-		});
-		const data = await req.json();
+		const data = await conectDB('veterinarios', 'POST', { name, email, password });
 
 		const { error } = data;
 		if (error) {

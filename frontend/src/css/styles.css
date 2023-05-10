@@ -29,7 +29,7 @@
 	width: 7px;
 	height: 7px;
 	border-radius: 50%;
-	background: #fff;
+	background: var(--bg-color-bnt);
 	margin: -4px 0 0 -4px;
 }
 .lds-roller div:nth-child(1) {
@@ -99,13 +99,15 @@
 /*END LOADER*/
 .Error,
 .Success {
-	width: 50%;
-	padding: 0.3em;
+	/* width: 100%; */
+	display: block;
+	padding: 0.4em;
 	text-transform: uppercase;
 	color: white;
 	font-weight: bold;
 	text-align: center;
 	font-size: 0.8rem;
+	border-radius: 0.4em;
 }
 .Error {
 	background-color: red;
@@ -197,18 +199,35 @@
 
 /*CONFIRMAR CUENTA*/
 .ConfirmAcc {
-	background-color: aqua;
 	height: 100vh;
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	align-content: center;
+	column-gap: 1em;
 }
 .ConfirmAcc-container {
-	background-color: whitesmoke;
+	line-height: 3em;
 }
 .ConfirmAcc-title {
-	background-color: lightcoral;
+	font-size: 2.7em;
+	font-weight: bold;
+}
+.ConfirmAcc-title {
+	/* background-color: lightcoral; */
 }
 .ConfirmAcc-subtitle {
-	background-color: lightsalmon;
+	/* font-size: 1em; */
+	font-size: inherit;
+	color: #ffea9f;
+	padding: 0;
 }
-.ConfirmAcc-alert {
-	background-color: lightgreen;
+.ConfirmAcc-message {
+	padding: 1em;
+	outline: 0.0625rem solid var(--primary-color);
+	border-radius: 0.4em;
+	background-color: var(--bg-color);
+	box-shadow: var(--box-shadow);
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
 }
