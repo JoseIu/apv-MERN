@@ -10,7 +10,7 @@ const sendResetPWD = async data => {
     }
   });
 
-  //enviamos email
+  //enviamos email olvide-password/:token
   console.log(data);
   const { name, email, token } = data;
   const info = await transporter.sendMail({
@@ -20,7 +20,7 @@ const sendResetPWD = async data => {
     text: 'Comprueba tu cuenta en PAV',
     html: `<p>Hola ${name}!, solicitaste el cambio de tu contraseña.</p>
       <p>Sigue los siguientes pasos para cambiarlo:
-      <a href="${process.env.FRONT_URL_CONFIRM}/olvide-password/${token}">Cambiar contraseña</a>
+      <a href="${process.env.FRONT_URL_RESET_PWD}/olvide-password/${token}">Cambiar contraseña</a>
       </p>
       <p>Si tu no creaste esta cuenta, puedes ignorar este mensaje</p>
       `

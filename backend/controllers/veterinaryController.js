@@ -80,7 +80,7 @@ const resetPassword = async (req, res) => {
   try {
     //Comprobamos si ese email existe
     const veterinaryEmail = await Veterinary.findOne({ email });
-    if (!veterinaryEmail) res.status(404).json({ msg: 'Email no encontrado' });
+    if (!veterinaryEmail) return res.status(404).json({ error: 'Email no encontrado' });
 
     //Genramos token y se lo envias a su correo
     veterinaryEmail.token = idGenerator();
@@ -93,7 +93,7 @@ const resetPassword = async (req, res) => {
       token: veterinaryEmail.token
     });
 
-    return res.status(200).json({ msg: 'Emos enviado un email con las instrucciones' });
+    return res.status(200).json({ msg: 'Hemos enviado un email con las instruccione' });
   } catch (error) {
     return res.status(500).json({ msg: 'Eror en el Servidor' });
   }
