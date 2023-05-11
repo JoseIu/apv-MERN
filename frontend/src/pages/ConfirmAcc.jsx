@@ -19,7 +19,7 @@ const ConfirmAcc = () => {
 		<div className='wrapper ConfirmAcc'>
 			<div className='ConfirmAcc-container'>
 				<h1 className='ConfirmAcc-title'>
-					Confirmar tu cuenta y empiaza a administar <span className='ConfirmAcc-subtitle'>Tus pacientes</span>
+					Confirmar tu cuenta y empieza a administrar<span className='ConfirmAcc-subtitle'> Tus pacientes</span>
 				</h1>
 				{/* <h2 className='ConfirmAcc-subtitle'>Tus pacientes</h2> */}
 			</div>

@@ -2,6 +2,7 @@ import bcrypt from 'bcrypt';
 import idGenerator from '../helpers/idGenerator.js';
 import jwtGenerator from '../helpers/jwtGenerator.js';
 import sendEmailRegister from '../helpers/sendEmailRegister.js';
+import sendResetPWD from '../helpers/sendResetPWD.js';
 import Veterinary from '../models/Veterinary.js';
 
 const register = async (req, res) => {
@@ -84,6 +85,13 @@ const resetPassword = async (req, res) => {
     //Genramos token y se lo envias a su correo
     veterinaryEmail.token = idGenerator();
     await veterinaryEmail.save();
+
+    //Enviamos el email para resetear PWD
+    sendResetPWD({
+      name: veterinaryEmail.name,
+      email,
+      token: veterinaryEmail.token
+    });
 
     return res.status(200).json({ msg: 'Emos enviado un email con las instrucciones' });
   } catch (error) {
