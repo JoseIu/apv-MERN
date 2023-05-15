@@ -21,7 +21,7 @@ const register = async (req, res) => {
     //Enviamos el email para verificar
     sendEmailRegister({ email, name, token: veterinarySaved.token });
 
-    res.json(veterinarySaved);
+    return res.json(veterinarySaved);
   } catch (error) {
     console.log(error);
   }
@@ -44,7 +44,7 @@ const confirm = async (req, res) => {
     veterinaryConfirm.confirmed = true;
     await veterinaryConfirm.save();
 
-    res.json({ smg: 'Veterinario confirmado correctamente' });
+    return res.json({ smg: 'Veterinario confirmado correctamente' });
   } catch (error) {
     console.log(error);
   }
@@ -57,18 +57,18 @@ const loging = async (req, res) => {
   try {
     //Verificamos si el usuario existe via email
     const veterinaryLogin = await Veterinary.findOne({ email });
-    if (!veterinaryLogin) return res.status(401).json({ msg: 'el usuario no existe' });
+    if (!veterinaryLogin) return res.status(401).json({ error: 'el usuario no existe' });
 
     //Verificamos si la cuenta esta verificada
-    if (!veterinaryLogin.confirmed) return res.status(401).json({ msg: 'Cuenta no verificada' });
+    if (!veterinaryLogin.confirmed) return res.status(401).json({ error: 'Cuenta no verificada' });
 
     //Comprobamos el password
     const passwordCompare = await bcrypt.compare(password, veterinaryLogin.password);
-    if (!passwordCompare) return res.status(401).json({ msg: 'password incorrecta' });
+    if (!passwordCompare) return res.status(401).json({ error: 'password incorrecta' });
 
     //Una vez que rerificamos y esta todo Ok generemos su token de session
 
-    res.json({ token: jwtGenerator(veterinaryLogin._id) });
+    return res.json({ token: jwtGenerator(veterinaryLogin._id) });
   } catch (error) {
     console.log(error);
   }
@@ -104,22 +104,24 @@ const checkToken = async (req, res) => {
   const { token } = req.params;
 
   const tokenValid = await Veterinary.findOne({ token });
-  if (!tokenValid) return res.status(404).json({ msg: 'Token no valido' });
+  if (!tokenValid) return res.status(404).json({ error: 'Token no valido :(' });
 
-  res.status(200).json({ msg: 'Token valido' });
+  return res.status(200).json({ msg: 'Token valido :D' });
 };
+
 const newPwd = async (req, res) => {
   const { token } = req.params;
-  const { password } = req.body;
+  const { newPassword } = req.body;
+  console.log(token);
 
   const veterinary = await Veterinary.findOne({ token });
-  if (!veterinary) return res.status(404).json({ msg: 'Token no valido' });
+  if (!veterinary) return res.status(404).json({ error: 'Usuario no encontrado' });
 
   try {
     veterinary.token = null;
-    veterinary.password = password;
+    veterinary.password = newPassword;
     await veterinary.save();
-    res.status(200).json({ msg: 'Contraseña modificada correctamente' });
+    return res.status(200).json({ msg: 'Contraseña modificada correctamente' });
   } catch (error) {
     return res.status(500).json({ msg: 'Eror en el Servidor' });
   }
@@ -127,6 +129,7 @@ const newPwd = async (req, res) => {
 
 const profile = (req, res) => {
   const { veterinaryAuth } = req;
+  console.log(veterinaryAuth);
   res.json({ perfil: veterinaryAuth });
 };
 

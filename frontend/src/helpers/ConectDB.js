@@ -1,10 +1,12 @@
-const conectDB = async (endpoint, method, content = null) => {
+const conectDB = async (endpoint, method, content = null, token = null) => {
 	const url = `${import.meta.env.VITE_BACKED_URL}/api/${endpoint}`;
 	const requestOptions = {
 		method,
 		headers: { 'Content-Type': 'application/json' }
 	};
-
+	if (token) {
+		requestOptions.headers.Authorization = `Bearer ${token}`;
+	}
 	if (method === 'POST' && content) {
 		requestOptions.body = JSON.stringify(content);
 	}
