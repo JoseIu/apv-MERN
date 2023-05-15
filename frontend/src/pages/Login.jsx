@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Alert from '../components/alerts/Alert';
 import FormEmail from '../components/form-components/FormEmail';
 import FormNav from '../components/form-components/FormNav';
@@ -8,6 +9,7 @@ import conectDB from '../helpers/ConectDB';
 
 const Login = () => {
 	const { email, setEmail, password, setPassword, alert, setAlert } = useFormStates();
+	const navigate = useNavigate();
 
 	const { msg } = alert;
 	return (
@@ -16,7 +18,7 @@ const Login = () => {
 				LOGO
 			</a>
 			{msg && <Alert alert={alert} />}
-			<form action='POST' className='Form' onSubmit={e => handleSubmit(e, email, password, setAlert)}>
+			<form action='POST' className='Form' onSubmit={e => handleSubmit(e, email, password, setAlert, navigate)}>
 				<FormEmail email={email} setEmail={setEmail} />
 				<FormPassword password={password} setPassword={setPassword} />
 				<FormSubmit value={'Iniciar sesión'} />
@@ -64,7 +66,7 @@ const useFormStates = () => {
 	};
 };
 
-const handleSubmit = async (e, email, password, setAlert) => {
+const handleSubmit = async (e, email, password, setAlert, navigate) => {
 	e.preventDefault();
 
 	if ([email, password].includes(''))
@@ -72,12 +74,15 @@ const handleSubmit = async (e, email, password, setAlert) => {
 
 	try {
 		const data = await conectDB('veterinarios/login', 'POST', { email, password });
-		console.log(data);
+
 		const { error, token } = data;
 
 		if (error) return setAlert({ msg: error, errorActive: true });
 
 		localStorage.setItem('token', token);
+
+		// redireccionamos una vez logeado
+		navigate('/admin');
 	} catch (error) {
 		console.log(error);
 	}

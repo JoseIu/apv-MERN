@@ -7,19 +7,20 @@ const AuthProvider = ({ children }) => {
 	const [auth, setAuth] = useState({});
 
 	useEffect(() => {
-		authUser();
+		authUserValidator(setAuth);
 	}, []);
 
 	return <AuthContext.Provider value={{ auth, setAuth }}>{children}</AuthContext.Provider>;
 };
-
-const authUser = async () => {
+// validamos si esta autenticado
+const authUserValidator = async setAuth => {
 	const authToken = localStorage.getItem('token');
 	if (!authToken) return;
 
 	try {
 		const data = await conectDB('veterinarios/perfil', 'GET', null, authToken);
 		console.log(data);
+		setAuth(data);
 	} catch (error) {
 		console.log(error);
 	}

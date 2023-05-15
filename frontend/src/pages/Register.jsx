@@ -4,13 +4,13 @@ import FormEmail from '../components/form-components/FormEmail';
 import FormNav from '../components/form-components/FormNav';
 import FormPassword from '../components/form-components/FormPassword';
 import FormSubmit from '../components/form-components/FromSubmit';
+
 import conectDB from '../helpers/ConectDB';
 
 const Register = () => {
 	const { name, setName, email, setEmail, password, setPassword, alert, setAlert } = useGetStates();
 
 	const { msg } = alert;
-	console.log(import.meta.env.VITE_BACKED_URL);
 
 	return (
 		<div className='Register wrapper'>
