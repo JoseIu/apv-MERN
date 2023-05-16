@@ -130,7 +130,7 @@ const newPwd = async (req, res) => {
 const profile = (req, res) => {
   const { veterinaryAuth } = req;
   console.log(veterinaryAuth);
-  res.json({ perfil: veterinaryAuth });
+  res.json(veterinaryAuth);
 };
 
 export { register, profile, confirm, loging, resetPassword, checkToken, newPwd };

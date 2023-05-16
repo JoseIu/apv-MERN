@@ -23,7 +23,7 @@ const App = () => (
 					<Route path='confirmar-cuenta/:token' element={<ConfirmAcc />} />
 				</Route>
 				<Route path='/admin' element={<AdminHeader />}>
-					<Route path='perfil' index element={<PatientAdministrator />}></Route>
+					<Route index element={<PatientAdministrator />}></Route>
 				</Route>
 			</Routes>
 		</AuthProvider>
