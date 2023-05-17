@@ -239,3 +239,41 @@
 	align-items: center;
 	row-gap: 2em;
 }
+
+/*HEADER PRIVATE-ADMIN*/
+.Header,
+.Footer {
+	background-color: var(--primary-color);
+	color: var(--bg-color);
+}
+.Header-content,
+.Footer-content {
+	padding: 1em;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.Footer {
+	padding: 1.1em 1em;
+}
+.Header-logo {
+	/* background-color: yellowgreen; */
+}
+.Header-nav {
+	/* background-color: violet; */
+}
+.Header-ul {
+	/* background-color: yellow; */
+	display: flex;
+	justify-content: center;
+	column-gap: 1.2em;
+}
+.Header-li {
+}
+.Header-link {
+}
+
+.Admin {
+	/* background-color: #ffea9f; */
+	height: 90vh;
+}

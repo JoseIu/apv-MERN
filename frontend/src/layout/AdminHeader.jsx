@@ -1,4 +1,6 @@
 import { Navigate, Outlet } from 'react-router-dom';
+import Footer from '../components/Footer';
+import Header from '../components/Header';
 import useAuth from '../hooks/useAuth';
 
 const AdminHeader = () => {
@@ -9,8 +11,9 @@ const AdminHeader = () => {
 	if (loadind) return 'aaaa';
 	return (
 		<>
-			<h1>Desde adminHeader PORTEGIDO!!!</h1>
+			<Header />
 			{auth?._id ? <Outlet /> : <Navigate to='/' />}
+			<Footer />
 		</>
 	);
 };

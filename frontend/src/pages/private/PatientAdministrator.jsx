@@ -1,2 +1,2 @@
-const PatientAdministrator = () => <h2>Desde PatientAdministrator!!!!</h2>;
+const PatientAdministrator = () => <section className='wrapper Admin'>Desde PatientAdministrator!!!!</section>;
 export default PatientAdministrator;
