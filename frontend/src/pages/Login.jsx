@@ -1,15 +1,39 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import Alert from '../components/alerts/Alert';
 import FormEmail from '../components/form-components/FormEmail';
 import FormNav from '../components/form-components/FormNav';
 import FormPassword from '../components/form-components/FormPassword';
+
+import { useNavigate } from 'react-router-dom';
 import FormSubmit from '../components/form-components/FromSubmit';
 import conectDB from '../helpers/ConectDB';
+import useAuth from '../hooks/useAuth';
 
 const Login = () => {
 	const { email, setEmail, password, setPassword, alert, setAlert } = useFormStates();
+	const { setAuth } = useAuth();
 	const navigate = useNavigate();
+	const handleSubmit = async e => {
+		e.preventDefault();
+
+		if ([email, password].includes(''))
+			return setAlert({ msg: 'Todos los campos son obligatorios', errorActive: true });
+
+		try {
+			const data = await conectDB('veterinarios/login', 'POST', { email, password }, null);
+			console.log(data);
+
+			const { error, token } = data;
+			if (error) return setAlert({ msg: error, errorActive: true });
+
+			localStorage.setItem('token', token);
+			setAuth(data);
+			// redireccionamos una vez logeado
+			navigate('/admin');
+		} catch (error) {
+			console.log(error);
+		}
+	};
 
 	const { msg } = alert;
 	return (
@@ -18,7 +42,7 @@ const Login = () => {
 				LOGO
 			</a>
 			{msg && <Alert alert={alert} />}
-			<form action='POST' className='Form' onSubmit={e => handleSubmit(e, email, password, setAlert, navigate)}>
+			<form method='POST' className='Form' onSubmit={handleSubmit}>
 				<FormEmail email={email} setEmail={setEmail} />
 				<FormPassword password={password} setPassword={setPassword} />
 				<FormSubmit value={'Iniciar sesión'} />
@@ -66,25 +90,23 @@ const useFormStates = () => {
 	};
 };
 
-const handleSubmit = async (e, email, password, setAlert, navigate) => {
-	e.preventDefault();
+// const handleSubmit = async (e, email, password, setAlert, navigate) => {
+// 	e.preventDefault();
 
-	if ([email, password].includes(''))
-		return setAlert({ msg: 'Todos los campos son obligatorios', errorActive: true });
+// 	if ([email, password].includes(''))
+// 		return setAlert({ msg: 'Todos los campos son obligatorios', errorActive: true });
 
-	try {
-		const data = await conectDB('veterinarios/login', 'POST', { email, password });
+// 	try {
+// 		const data = await conectDB('veterinarios/login', 'POST', { email, password });
 
-		const { error, token } = data;
+// 		const { error, token } = data;
+// 		if (error) return setAlert({ msg: error, errorActive: true });
 
-		if (error) return setAlert({ msg: error, errorActive: true });
-
-		localStorage.setItem('token', token);
-
-		// redireccionamos una vez logeado
-		navigate('/admin');
-	} catch (error) {
-		console.log(error);
-	}
-};
+// 		localStorage.setItem('token', token);
+// 		// redireccionamos una vez logeado
+// 		// navigate('/admin');
+// 	} catch (error) {
+// 		console.log(error);
+// 	}
+// };
 export default Login;

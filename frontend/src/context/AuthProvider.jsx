@@ -4,30 +4,51 @@ import conectDB from '../helpers/ConectDB';
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
+	const [loadindLogin, setLoadingLogin] = useState(true);
 	const [auth, setAuth] = useState({});
-	const [loadind, setLoading] = useState(true);
 
 	useEffect(() => {
-		authUserValidator(setAuth, setLoading);
-	}, []);
+		// userAuthorized(setAuth, setLoadingLogin);
+		const userAuthorized = async () => {
+			const authToken = localStorage.getItem('token');
+			// console.log(authToken);
+			if (!authToken) return setLoadingLogin(false);
 
-	return <AuthContext.Provider value={{ auth, setAuth, loadind }}>{children}</AuthContext.Provider>;
+			try {
+				const data = await conectDB('veterinarios/perfil', 'GET', null, authToken);
+				console.log(data);
+				setAuth(data);
+			} catch (error) {
+				console.log(error);
+			}
+			setLoadingLogin(false);
+		};
+		userAuthorized();
+	}, []);
+	const closeSession = () => {
+		localStorage.removeItem('token');
+		setAuth({});
+	};
+
+	return (
+		<AuthContext.Provider value={{ auth, setAuth, loadindLogin, closeSession }}>{children}</AuthContext.Provider>
+	);
 };
 // validamos si esta autenticado
-const authUserValidator = async (setAuth, setLoading) => {
-	const authToken = localStorage.getItem('token');
-	if (!authToken) {
-		setLoading(false);
-		return;
-	}
+// const userAuthorized = async (setAuth, setLoadingLogin) => {
+// 	const authToken = localStorage.getItem('token');
+// 	console.log(authToken);
+// 	if (!authToken) return setLoadingLogin(false);
 
-	try {
-		const data = await conectDB('veterinarios/perfil', 'GET', null, authToken);
-		setAuth(data);
-	} catch (error) {
-		console.log(error);
-	}
-	setLoading(false);
-};
+// 	try {
+// 		const data = await conectDB('veterinarios/perfil', 'GET', null, authToken);
+// 		console.log(data);
+// 		setAuth(data);
+// 	} catch (error) {
+// 		console.log(error);
+// 	}
+// 	setLoadingLogin(false);
+// };
+
 export { AuthProvider };
 export default AuthContext;

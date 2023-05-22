@@ -68,7 +68,12 @@ const loging = async (req, res) => {
 
     //Una vez que rerificamos y esta todo Ok generemos su token de session
 
-    return res.json({ token: jwtGenerator(veterinaryLogin._id) });
+    return res.json({
+      _id: veterinaryLogin.id,
+      nombre: veterinaryLogin.name,
+      email: veterinaryLogin.email,
+      token: jwtGenerator(veterinaryLogin._id)
+    });
   } catch (error) {
     console.log(error);
   }
@@ -130,7 +135,7 @@ const newPwd = async (req, res) => {
 const profile = (req, res) => {
   const { veterinaryAuth } = req;
   console.log(veterinaryAuth);
-  res.json(veterinaryAuth);
+  return res.json(veterinaryAuth);
 };
 
 export { register, profile, confirm, loging, resetPassword, checkToken, newPwd };

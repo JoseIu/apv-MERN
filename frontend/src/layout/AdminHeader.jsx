@@ -4,11 +4,11 @@ import Header from '../components/Header';
 import useAuth from '../hooks/useAuth';
 
 const AdminHeader = () => {
-	const { auth, loadind } = useAuth();
-	console.log(auth);
-	console.log(loadind);
+	const { auth, loadindLogin } = useAuth();
+	// console.log(auth);
+	console.log(loadindLogin);
 
-	if (loadind) return 'aaaa';
+	// if (loadindLogin) return 'aaaa';
 	return (
 		<>
 			<Header />

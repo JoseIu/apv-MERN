@@ -1,5 +1,13 @@
 import express from 'express';
-import { checkToken, confirm, loging, newPwd, profile, register, resetPassword } from '../controllers/veterinaryController.js';
+import {
+  checkToken,
+  confirm,
+  loging,
+  newPwd,
+  profile,
+  register,
+  resetPassword
+} from '../controllers/veterinaryController.js';
 import checkAuth from '../middleware/authMiddleware.js';
 
 const veterinaryRouter = express.Router();

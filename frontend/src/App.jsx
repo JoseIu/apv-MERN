@@ -8,7 +8,7 @@ import ForgetPass from './pages/ForgetPass';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import ResetPWD from './pages/ResetPWD';
-import PatientAdministrator from './pages/private/PatientAdministrator';
+import PatientAdministrator from './pages/login/PatientAdministrator';
 
 const App = () => (
 	<BrowserRouter>
