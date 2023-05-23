@@ -8,6 +8,7 @@ import ForgetPass from './pages/ForgetPass';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import ResetPWD from './pages/ResetPWD';
+import FormAddPatient from './pages/login/FormAddPatient';
 import PatientAdministrator from './pages/login/PatientAdministrator';
 
 const App = () => (
@@ -24,6 +25,7 @@ const App = () => (
 				</Route>
 				<Route path='/admin' element={<AdminHeader />}>
 					<Route index element={<PatientAdministrator />}></Route>
+					<Route path='add-paciente' element={<FormAddPatient />}></Route>
 				</Route>
 			</Routes>
 		</AuthProvider>

@@ -8,7 +8,7 @@ const AdminHeader = () => {
 	// console.log(auth);
 	console.log(loadindLogin);
 
-	// if (loadindLogin) return 'aaaa';
+	if (loadindLogin) return 'aaaa';
 	return (
 		<>
 			<Header />
