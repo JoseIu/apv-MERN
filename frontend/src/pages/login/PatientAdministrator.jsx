@@ -21,6 +21,15 @@ const PatientAdministrator = () => {
 					<AddIcont className={'Patients-add'} />
 				</Link>
 				<ul className='Patients-List'>
+					<li>
+						<header className='Patients-header'>
+							<div className='Patients-name'>Nombre</div>
+							<div className='Patients-owner'>Dueño</div>
+							<div className='Patients-email'>Email</div>
+							<div className='Patients-date'>Cita</div>
+							<div className='Patients-symptoms'>Síntomas</div>
+						</header>
+					</li>
 					<RenderPatientsList patients={patients} />
 				</ul>
 			</div>

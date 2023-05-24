@@ -1,3 +1,6 @@
+import DeleteIcon from '../../components/patients/DeleteIcon';
+import EditIcon from '../../components/patients/EditIcon';
+
 const RenderPatientRow = ({ date, email, name, owner, symptoms }) => {
 	return (
 		<li className='Patients-row'>
@@ -7,8 +10,12 @@ const RenderPatientRow = ({ date, email, name, owner, symptoms }) => {
 			<div className='Patients-date'>{date}</div>
 			<div className='Patients-symptoms'>{symptoms}</div>
 			<div className='Patients-actions'>
-				<button>Editar</button>
-				<button>Eliminar</button>
+				<button>
+					<EditIcon />
+				</button>
+				<button>
+					<DeleteIcon />
+				</button>
 			</div>
 		</li>
 	);
