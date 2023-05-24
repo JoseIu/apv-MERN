@@ -5,8 +5,6 @@ import useAuth from '../hooks/useAuth';
 
 const AdminHeader = () => {
 	const { auth, loadindLogin } = useAuth();
-	// console.log(auth);
-	console.log(loadindLogin);
 
 	if (loadindLogin) return 'aaaa';
 	return (

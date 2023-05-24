@@ -300,10 +300,53 @@
 .Patients-form {
 	padding: 1em;
 	display: flex;
+	flex-direction: column;
+	row-gap: 1.5em;
 	justify-content: center;
 	align-items: center;
 	height: 100vh;
 }
 .Patients-list {
 	background-color: yellowgreen;
+}
+.Patients-List {
+	background-color: green;
+}
+.Patients-row {
+	background-color: goldenrod;
+	display: flex;
+	justify-content: space-between;
+	text-align: center;
+	border-bottom: 0.0625rem solid var(--primary-color);
+	border-radius: 0.4em;
+}
+.Patients-name,
+.Patients-owner,
+.Patients-email,
+.Patients-date,
+.Patients-symptoms,
+.Patients-actions {
+	width: 22%;
+}
+.Patients-name {
+	width: 7%;
+	background-color: #231f20;
+}
+.Patients-owner {
+	background-color: lightcoral;
+}
+.Patients-email {
+	background-color: lightgreen;
+}
+.Patients-date {
+	background-color: lightyellow;
+}
+.Patients-symptoms {
+	background-color: lightblue;
+}
+.Patients-actions {
+	width: 10%;
+	display: flex;
+	justify-content: space-between;
+	background-color: turquoise;
 }
