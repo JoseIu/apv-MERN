@@ -4,7 +4,32 @@ const PatientContext = createContext();
 
 const PatientProvider = ({ children }) => {
 	const [patients, setPatients] = useState([]);
-	return <PatientContext.Provider value={{ patients, setPatients }}>{children}</PatientContext.Provider>;
+	const [patient, setPatient] = useState({});
+	const [patientEdit, setPatientEdit] = useState({});
+
+	const [patientDelete, setPatientDelete] = useState({});
+
+	const editPatient = pacient => {
+		setPatientEdit(pacient);
+	};
+
+	return (
+		<PatientContext.Provider
+			value={{
+				patients,
+				setPatients,
+				patient,
+				setPatient,
+				patientEdit,
+				setPatientEdit,
+				patientDelete,
+				setPatientDelete,
+				editPatient
+			}}
+		>
+			{children}
+		</PatientContext.Provider>
+	);
 };
 
 export { PatientProvider };

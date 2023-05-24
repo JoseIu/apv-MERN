@@ -16,7 +16,6 @@ const AuthProvider = ({ children }) => {
 
 			try {
 				const data = await conectDB('veterinarios/perfil', 'GET', null, authToken);
-				console.log(data);
 				setAuth(data);
 			} catch (error) {
 				console.log(error);

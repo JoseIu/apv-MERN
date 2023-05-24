@@ -13,16 +13,16 @@ const PatientAdministrator = () => {
 	}, []);
 	return (
 		<section className='wrapper Patients'>
-			<div>
-				<form className='Form FormLogin'>Formularo De Busqueda</form>
+			<div className='FormFilter'>
+				<form className='Form'>Formularo De Busqueda</form>
 			</div>
 			<div className='Patients-container'>
 				<Link to='add-paciente'>
 					<AddIcont className={'Patients-add'} />
 				</Link>
 				<ul className='Patients-List'>
-					<li>
-						<header className='Patients-header'>
+					<li className='Patients-header'>
+						<header className='Patients-headerContent'>
 							<div className='Patients-name'>Nombre</div>
 							<div className='Patients-owner'>Dueño</div>
 							<div className='Patients-email'>Email</div>

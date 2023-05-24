@@ -99,7 +99,6 @@
 /*END LOADER*/
 .Error,
 .Success {
-	/* width: 100%; */
 	display: block;
 	padding: 0.4em;
 	text-transform: uppercase;
@@ -214,7 +213,6 @@
 	font-weight: bold;
 }
 .ConfirmAcc-title {
-	/* background-color: lightcoral; */
 }
 .ConfirmAcc-subtitle {
 	/* font-size: 1em; */
@@ -258,7 +256,7 @@
 	padding: 1.1em 1em;
 }
 .Header-logo {
-	/* background-color: yellowgreen; */
+	font-size: 1.35em;
 }
 .Header-nav {
 	/* background-color: violet; */
@@ -275,24 +273,21 @@
 }
 
 /*LOGIN PATIENTS*/
-.FormLogin {
-	margin-left: auto;
-	margin-right: auto;
-	/* min-width: 50em;
-	max-width: 50em; */
+.FormFilter {
+	padding: 3em 0 0 0;
+	margin-bottom: 3em;
+	text-align: center;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 .Patients {
-	padding: 3em 0 0 0;
-	background-color: #ffea9f;
+	padding: 0.5em;
 	min-height: 90vh;
 	display: grid;
 }
-.Patients-container {
-	padding: 1em;
-	background-color: blueviolet;
-}
 .Patients-add {
-	background-color: turquoise;
 	width: 2em;
 	margin-left: auto;
 	margin-bottom: 1em;
@@ -306,23 +301,43 @@
 	align-items: center;
 	height: 100vh;
 }
-.Patients-list {
-	background-color: yellowgreen;
-}
-.Patients-List {
-	background-color: green;
-}
+
+/*====RENDERIZADO DE LOS PACIENTES===*/
 .Patients-row,
-.Patients-header {
-	background-color: goldenrod;
-	/* display: flex;
-	justify-content: space-between; */
+.Patients-headerContent {
 	display: grid;
 	grid-template-columns: repeat(6, 1fr);
 	text-align: center;
 	border-bottom: 0.0625rem solid var(--primary-color);
-	border-radius: 0.4em;
 }
+.Patients-headerContent {
+	background-color: var(--primary-color);
+	color: var(--bg-color);
+}
+.Patients-row {
+	margin-bottom: 0.5em;
+}
+@media screen and (max-width: 56.25rem) {
+	.Patients-header {
+		display: none;
+		overflow: hidden;
+		position: absolute;
+	}
+	.Patients-List {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(14.5rem, 1fr));
+		gap: 1em;
+	}
+	.Patients-row {
+		box-shadow: var(--box-shadow);
+		outline: 0.0625rem solid var(--primary-color);
+		padding: 1em;
+		display: flex;
+		flex-direction: column;
+		margin-bottom: 2em;
+	}
+}
+
 .Patients-name,
 .Patients-owner,
 .Patients-email,
@@ -333,32 +348,38 @@
 	justify-content: center;
 	align-items: center;
 }
-.Patients-name {
-	/* width: 7%; */
-	background-color: #231f20;
-}
-.Patients-owner {
-	background-color: lightcoral;
-}
-.Patients-email {
-	background-color: lightgreen;
-}
-.Patients-date {
-	background-color: lightyellow;
-}
-.Patients-symptoms {
-	background-color: lightblue;
-}
 .Patients-actions {
-	/* width: 10%; */
 	display: flex;
 	justify-content: space-evenly;
-	background-color: turquoise;
 }
 .Patient-edit,
 .Patient-delete {
 	width: 2em;
+	cursor: pointer;
 }
 .Patient-delete {
 	color: red;
+}
+
+.Patient-editForm {
+}
+
+.Modal-active {
+	width: 100%;
+	height: 100vh;
+	position: absolute;
+	background-color: #231f20;
+	top: 0;
+	left: 0;
+}
+.Modal-inactive {
+	left: -100%;
+}
+.Modal-close {
+	font-size: 2em;
+	position: absolute;
+	top: 2%;
+	right: 10%;
+	color: var(--bg-color-bnt);
+	cursor: pointer;
 }
