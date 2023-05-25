@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Alert from '../../components/alerts/Alert';
 import FormEmail from '../../components/form-components/FormEmail';
 import ForName from '../../components/form-components/FormName';
@@ -9,7 +9,7 @@ import usePatient from '../../hooks/usePatient';
 
 const EditPatient = () => {
 	const { patientEdit } = usePatient();
-	const [id, setID] = useState('');
+	const navigate = useNavigate();
 
 	const {
 		namePetEdit,
@@ -33,11 +33,8 @@ const EditPatient = () => {
 			setEmailEdit(patientEdit.email);
 			setDateEdit(patientEdit.date);
 			setSymptomsEdit(patientEdit.symptoms);
-			setID(patientEdit._id);
 		}
 	}, [patientEdit]);
-
-	console.log(id);
 
 	const { msg } = alert;
 	return (
@@ -55,7 +52,8 @@ const EditPatient = () => {
 						dateEdit,
 						symptomsEdit,
 						setAlert,
-						patientEdit._id
+						patientEdit._id,
+						navigate
 					)
 				}
 			>
@@ -117,7 +115,7 @@ const useFormEditPatientValidate = () => {
 	};
 };
 
-const FormEditPatientValidate = async (e, name, owner, email, date, symptoms, setAlert, id) => {
+const FormEditPatientValidate = async (e, name, owner, email, date, symptoms, setAlert, id, navigate) => {
 	e.preventDefault();
 
 	if ([name, owner, email, date, symptoms].includes(''))
@@ -134,6 +132,12 @@ const FormEditPatientValidate = async (e, name, owner, email, date, symptoms, se
 		console.log(id);
 		const token = localStorage.getItem('token');
 		const data = await conectDB(`pacientes/${id}`, 'Put', PATIENT, token);
+		const { msg } = data;
+		setAlert({ msg, errorActive: false });
+
+		setTimeout(() => {
+			navigate('/admin');
+		}, 1500);
 
 		console.log(data);
 	} catch (error) {
