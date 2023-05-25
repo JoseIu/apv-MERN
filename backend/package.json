@@ -2,7 +2,7 @@
   "name": "apv-backend",
   "version": "1.0.0",
   "description": "Aprendiendo JS Fullstack",
-  "main": "Joselu",
+  "main": "app.js",
   "type": "module",
   "scripts": {
     "dev": "nodemon ./app.js"

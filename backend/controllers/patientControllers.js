@@ -40,10 +40,14 @@ const getPatient = async (req, res) => {
 const updatePatient = async (req, res) => {
   //id del paciente by URL
   const { id } = req.params;
+  console.log(id);
   // veterinario logeado/auntenticado
   const { veterinaryAuth } = req;
 
+  // const patientId = new mongoose.Types.ObjectId(id);
   const patient = await Patient.findById(id);
+  console.log(patient._id);
+  console.log(patient._id.equals(id));
   if (!patient) return res.status(404).json({ smg: 'Paciente no encontrado' });
 
   const { veterinary } = patient;
@@ -53,18 +57,20 @@ const updatePatient = async (req, res) => {
 
   //actualizamos paciente
   const { name, owner, email, date, symptoms } = req.body;
+  console.log(name, owner, email, date, symptoms);
 
   try {
-    patient.name = name || patient.name;
-    patient.owner = owner || patient.owner;
-    patient.email = email || patient.email;
-    patient.date = date || patient.date;
-    patient.symptoms = symptoms || patient.symptoms;
+    patient.name = name;
+    patient.owner = owner;
+    patient.email = email;
+    patient.date = date;
+    patient.symptoms = symptoms;
 
     await patient.save();
-    res.json({ smd: 'Paciente actualizado correctamente' });
+    return res.json({ msg: 'Paciente actualizado correctamente' });
   } catch (error) {
     console.log(error);
+    return res.status(500).json({ msg: 'Error al actualizar el paciente' });
   }
 };
 const deletePatient = async (req, res) => {

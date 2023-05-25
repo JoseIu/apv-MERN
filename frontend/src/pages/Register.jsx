@@ -3,7 +3,7 @@ import Alert from '../components/alerts/Alert';
 import FormEmail from '../components/form-components/FormEmail';
 import FormNav from '../components/form-components/FormNav';
 import FormPassword from '../components/form-components/FormPassword';
-import FormSubmit from '../components/form-components/FromSubmit';
+import FormSubmit from '../components/form-components/FormSubmit';
 
 import conectDB from '../helpers/ConectDB';
 

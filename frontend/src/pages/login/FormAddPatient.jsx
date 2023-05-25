@@ -2,32 +2,22 @@ import { useState } from 'react';
 import Alert from '../../components/alerts/Alert';
 import FormEmail from '../../components/form-components/FormEmail';
 import ForName from '../../components/form-components/FormName';
-import FormSubmit from '../../components/form-components/FromSubmit';
-import conectDB from '../../helpers/ConectDB';
+import FormSubmit from '../../components/form-components/FormSubmit';
 import usePatient from '../../hooks/usePatient';
 
 const FormAddPatient = () => {
-	const {
-		namePet,
-		setNamePet,
-		nameOwner,
-		setNameOwner,
-		email,
-		setEmail,
-		date,
-		setDate,
-		symptoms,
-		setSymptoms,
-		alert,
-		setAlert
-	} = useFormAddPatientValidate();
+	const { addAndSavePatient, alert, setAlert } = usePatient();
+	const { namePet, setNamePet, nameOwner, setNameOwner, email, setEmail, date, setDate, symptoms, setSymptoms } =
+		useFormAddPatientValidate();
 
 	const { msg } = alert;
 
 	return (
 		<section
 			className='Patients-form'
-			onSubmit={e => FormAddPatientValidate(e, namePet, nameOwner, email, date, symptoms, setAlert)}
+			onSubmit={e =>
+				FormAddPatientValidate(e, namePet, nameOwner, email, date, symptoms, setAlert, addAndSavePatient)
+			}
 		>
 			{msg && <Alert alert={alert} />}
 			<form className='Form'>
@@ -123,16 +113,20 @@ const useFormAddPatientValidate = () => {
 		setAlert
 	};
 };
-const AddPatientsToState = patientSaved => {
-	const { patients, setPatients } = usePatient();
-	setPatients([patientSaved, ...patients]);
-};
-const FormAddPatientValidate = async (e, namePet, nameOwner, email, date, symptoms, setAlert) => {
+const FormAddPatientValidate = async (
+	e,
+	namePet,
+	nameOwner,
+	email,
+	date,
+	symptoms,
+	setAlert,
+	addAndSavePatient
+) => {
 	e.preventDefault();
 
 	if ([namePet, nameOwner, email, date, symptoms].includes(''))
 		return setAlert({ msg: 'Todos lo campos son obligatorios', errorActive: true });
-	setAlert({ msg: 'Paciente guardado correctamente', errorActive: false });
 
 	const PATIENT = {
 		name: namePet,
@@ -142,18 +136,7 @@ const FormAddPatientValidate = async (e, namePet, nameOwner, email, date, sympto
 		symptoms
 	};
 
-	try {
-		const token = localStorage.getItem('token');
-		if (!token) return;
-		const data = await conectDB('pacientes', 'POST', PATIENT, token);
-		const { patientSaved } = data;
-		console.log(patientSaved);
-		// Agregamos al state de Patiens
-
-		AddPatientsToState(patientSaved);
-	} catch (error) {
-		console.log(error);
-	}
+	addAndSavePatient(PATIENT);
 };
 
 export default FormAddPatient;

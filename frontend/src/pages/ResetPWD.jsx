@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Alert from '../components/alerts/Alert';
 import FormPassword from '../components/form-components/FormPassword';
-import FormSubmit from '../components/form-components/FromSubmit';
+import FormSubmit from '../components/form-components/FormSubmit';
 import conectDB from '../helpers/ConectDB';
 
 const ResetPWD = () => {

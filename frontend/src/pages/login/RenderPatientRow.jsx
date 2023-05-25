@@ -1,12 +1,11 @@
-import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import DeletePatient from '../../components/patients/DeletPatient';
 import EditIcon from '../../components/patients/EditIcon';
-import EditPatient from '../../components/patients/EditPatient';
+
 import usePatient from '../../hooks/usePatient';
 
 const RenderPatientRow = patient => {
 	const { date, email, name, owner, symptoms } = patient;
-	const [modalEditPatient, setModalEditPatient] = useState(false);
 	const { editPatient } = usePatient();
 	const formatDatee = dateFormat(date);
 
@@ -18,22 +17,9 @@ const RenderPatientRow = patient => {
 			<div className='Patients-date'>{formatDatee}</div>
 			<div className='Patients-symptoms'>{symptoms}</div>
 			<div className='Patients-actions'>
-				<button
-					onClick={() => {
-						setModalEditPatient(!modalEditPatient);
-						editPatient(patient);
-					}}
-				>
+				<Link to={'edit-paciente'} onClick={() => editPatient(patient)}>
 					<EditIcon />
-				</button>
-				{
-					// Mostramos modal para el formulario
-					modalEditPatient ? (
-						<EditPatient modalEditPatient={modalEditPatient} setModalEditPatient={setModalEditPatient} />
-					) : (
-						''
-					)
-				}
+				</Link>
 				<DeletePatient patient={patient} />
 			</div>
 		</li>

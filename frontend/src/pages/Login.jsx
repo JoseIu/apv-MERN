@@ -5,7 +5,7 @@ import FormNav from '../components/form-components/FormNav';
 import FormPassword from '../components/form-components/FormPassword';
 
 import { useNavigate } from 'react-router-dom';
-import FormSubmit from '../components/form-components/FromSubmit';
+import FormSubmit from '../components/form-components/FormSubmit';
 import conectDB from '../helpers/ConectDB';
 import useAuth from '../hooks/useAuth';
 

@@ -1,12 +1,11 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import AddIcont from '../../components/patients/AddIcon';
-import conectDB from '../../helpers/ConectDB';
 import usePatient from '../../hooks/usePatient';
 import RenderPatientsList from './RenderUsersList';
 
 const PatientAdministrator = () => {
-	const { patients, setPatients } = usePatient();
+	const { patients, setPatients, getPatients } = usePatient();
 
 	useEffect(() => {
 		getPatients(setPatients);
@@ -35,15 +34,5 @@ const PatientAdministrator = () => {
 			</div>
 		</section>
 	);
-};
-
-const getPatients = async setPatients => {
-	try {
-		const token = localStorage.getItem('token');
-		const data = await conectDB('pacientes', 'GET', null, token);
-		setPatients(data);
-	} catch (error) {
-		console.log(error);
-	}
 };
 export default PatientAdministrator;

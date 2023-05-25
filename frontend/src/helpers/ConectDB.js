@@ -7,10 +7,10 @@ const conectDB = async (endpoint, method, content = null, token = null) => {
 	if (token) {
 		requestOptions.headers.Authorization = `Bearer ${token}`;
 	}
-	if (method === 'POST' && content) {
+	if ((method === 'POST' || 'PUT') && content) {
 		requestOptions.body = JSON.stringify(content);
 	}
-
+	console.log(content);
 	const req = await fetch(url, requestOptions);
 	const data = await req.json();
 	return data;
