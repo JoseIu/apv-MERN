@@ -90,24 +90,4 @@ const useFormStates = () => {
 	};
 };
 
-// const handleSubmit = async (e, email, password, setAlert, navigate) => {
-// 	e.preventDefault();
-
-// 	if ([email, password].includes(''))
-// 		return setAlert({ msg: 'Todos los campos son obligatorios', errorActive: true });
-
-// 	try {
-// 		const data = await conectDB('veterinarios/login', 'POST', { email, password });
-
-// 		const { error, token } = data;
-// 		if (error) return setAlert({ msg: error, errorActive: true });
-
-// 		localStorage.setItem('token', token);
-// 		// redireccionamos una vez logeado
-// 		// navigate('/admin');
-// 	} catch (error) {
-// 		console.log(error);
-// 	}
-// };
-
 export default Login;
