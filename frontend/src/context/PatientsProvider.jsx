@@ -8,8 +8,6 @@ const PatientProvider = ({ children }) => {
 	const [patients, setPatients] = useState([]);
 	const [patientEdit, setPatientEdit] = useState({});
 
-	const [patientDelete, setPatientDelete] = useState({});
-
 	const getPatients = async setPatients => {
 		try {
 			const token = localStorage.getItem('token');
@@ -32,8 +30,25 @@ const PatientProvider = ({ children }) => {
 		}
 	};
 	const editPatient = patient => {
-		console.log(patient);
 		setPatientEdit(patient);
+	};
+	const deltePatient = async id => {
+		const confirmDelte = confirm('¿Deseas BORRAR este paciente?');
+		if (confirmDelte) {
+			try {
+				const token = localStorage.getItem('token');
+				if (!token) return;
+				const data = await conectDB(`pacientes/${id}`, 'DELETE', null, token);
+				const { smg } = data;
+				setAlert({ msg: smg, errorActive: false });
+
+				// actualizamos el front (para que sea reactivo)
+				const patientDelete = patients.filter(patient => patient._id !== id);
+				setPatients(patientDelete);
+			} catch (error) {
+				console.log(error);
+			}
+		}
 	};
 
 	return (
@@ -43,11 +58,10 @@ const PatientProvider = ({ children }) => {
 				setPatients,
 				patientEdit,
 				setPatientEdit,
-				patientDelete,
-				setPatientDelete,
 				getPatients,
 				addAndSavePatient,
 				editPatient,
+				deltePatient,
 				alert,
 				setAlert
 			}}

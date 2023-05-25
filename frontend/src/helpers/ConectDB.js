@@ -10,7 +10,6 @@ const conectDB = async (endpoint, method, content = null, token = null) => {
 	if ((method === 'POST' || 'PUT') && content) {
 		requestOptions.body = JSON.stringify(content);
 	}
-	console.log(content);
 	const req = await fetch(url, requestOptions);
 	const data = await req.json();
 	return data;

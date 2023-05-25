@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom';
-import DeletePatient from '../../components/patients/DeletPatient';
+import DeleteIcon from '../../components/patients/DeleteIcon';
 import EditIcon from '../../components/patients/EditIcon';
 
 import usePatient from '../../hooks/usePatient';
 
 const RenderPatientRow = patient => {
 	const { date, email, name, owner, symptoms } = patient;
-	const { editPatient } = usePatient();
+	const { editPatient, deltePatient } = usePatient();
 	const formatDatee = dateFormat(date);
 
 	return (
@@ -20,7 +20,9 @@ const RenderPatientRow = patient => {
 				<Link to={'edit-paciente'} onClick={() => editPatient(patient)}>
 					<EditIcon />
 				</Link>
-				<DeletePatient patient={patient} />
+				<button onClick={() => deltePatient(patient._id)}>
+					<DeleteIcon />
+				</button>
 			</div>
 		</li>
 	);
