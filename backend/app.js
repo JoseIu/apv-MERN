@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 3000;
 conectBD();
 
 const app = express();
-const dominPermit = ['http://localhost:5173'];
+const dominPermit = [process.env.FRONT_URL];
 const corsOptions = {
   origin: function (origin, callback) {
     if (dominPermit.indexOf(origin) !== -1) return callback(null, true);
